@@ -54,7 +54,7 @@ describe('Test', async () => {
         assert.equal(epInfo.endpoint, env.endpoint)
     });
 
-    it('created fixtures', async () => {
+    it('creates fixtures', async () => {
         const res = await uapiFetch({
             apiKey: env.apiKey,
             uri: `${env.endpoint}/fixtures/create`,
@@ -63,12 +63,13 @@ describe('Test', async () => {
         });
         const body = await res.json();
         const { added } = body;
+        // assert.exists(added, 'add fixtures expected fixtures');
         fixtures.results.added = added;
-        console.log("created fixures", added, "wait to settle");
+        // console.log("created fixures", added, "wait to settle");
         await sleep(1500);
     });
 
-    it('gets cases and eaches via fixture ID', async () => {
+    it(`gets cases and eaches via fixture ID: ${testFixtures.id}`, async () => {
         await sleep(1500);
         const res = await uapiFetch({
             apiKey: env.apiKey,
@@ -76,8 +77,8 @@ describe('Test', async () => {
         });
         const { cases, eaches } = await res.json();
         // console.log({ cases, eaches })
-        assert.notEqual(cases?.length, 0, "no cases");
-        assert.notEqual(eaches?.length, 0, "no caeacheses");
+        assert.ok(cases?.length, "no cases");
+        assert.ok(eaches?.length, "no eaches");
         fixtures.cases = cases;
         fixtures.eaches = eaches;
     });
@@ -113,10 +114,9 @@ describe('Test', async () => {
         });
         const body = await res.json();
         const { removed } = body;
-        console.log("removed", removed)
         fixtures.results.removed = removed;
-        assert.notEqual(removed?.branches?.length, 0);
-        assert.notEqual(removed?.softCodes?.length, 0);
+        assert.ok(removed?.branches?.length);
+        assert.ok(removed?.softCodes?.length);
     });
 });
 
