@@ -1,0 +1,5 @@
+{
+    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mjk1NjdlYTI2N2YyZTExYTcyZTIzNWEiLCJ3Ijp0cnVlLCJzIjp0cnVlLCJpYXQiOjE2NTM5NTg3MzIsImV4cCI6MTc0ODY1MzEzMn0.rGEtVL5E_TmDxacDA1bPrH9-ui9w3oz3s2QYUgnh2g0",
+    "qrBase": "https://s.chroma.io",
+    "endpoint": "https://signet.codes/uapi/v1"
+}

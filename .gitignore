@@ -1,0 +1,7 @@
+.nyc_output
+.DS_Store
+node_modules
+coverage/
+/config
+/docs
+/esm
