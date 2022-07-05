@@ -12,7 +12,9 @@ export interface FetchOptions {
         [x: string]: string;
     };
 }
-export declare function getPostHeaders({ baseHeaders, additionalHeaders, }: Partial<FetchOptions>): {
+export declare function getHeaders({ isPost, baseHeaders, additionalHeaders, }: Partial<FetchOptions> & {
+    isPost: boolean;
+}): {
     [x: string]: string;
 };
 export declare const getOptions: (_options: FetchOptions | string) => any;

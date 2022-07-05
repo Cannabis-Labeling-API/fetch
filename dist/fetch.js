@@ -22,24 +22,29 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uapiFetch = exports.getOptions = exports.getPostHeaders = void 0;
+exports.uapiFetch = exports.getOptions = exports.getHeaders = void 0;
 require("isomorphic-fetch");
 // @ts-ignore
 if (typeof globalThis.navigator === "undefined")
     globalThis.navigator = {};
-function getPostHeaders(_a) {
-    var baseHeaders = _a.baseHeaders, additionalHeaders = _a.additionalHeaders;
-    var headersMap = __assign(__assign({}, (baseHeaders || {
-        "Accept-Encoding": "gzip",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-    })), additionalHeaders);
+function getHeaders(_a) {
+    var isPost = _a.isPost, baseHeaders = _a.baseHeaders, additionalHeaders = _a.additionalHeaders;
+    var headers = baseHeaders && Object.keys(baseHeaders).length > 0
+        ? baseHeaders
+        : isPost
+            ? {
+                "Accept-Encoding": "gzip",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            }
+            : { "Accept-Encoding": "gzip", Accept: "application/json" };
+    var headersMap = __assign(__assign({}, headers), additionalHeaders);
     return headersMap;
 }
-exports.getPostHeaders = getPostHeaders;
+exports.getHeaders = getHeaders;
 var getOptions = function (_options) {
     var options;
-    if (!_options || (typeof _options === 'string')) {
+    if (!_options || typeof _options === "string") {
         options = {};
     }
     else {
@@ -47,12 +52,9 @@ var getOptions = function (_options) {
     }
     var baseHeaders = options.baseHeaders, additionalHeaders = options.additionalHeaders, apiKey = options.apiKey, _method = options.method, _body = options.body, mode = options.mode, passThrough = __rest(options, ["baseHeaders", "additionalHeaders", "apiKey", "method", "body", "mode"]);
     var method = _method || "GET";
-    var isPost = ['put', 'post'].indexOf(method.toLowerCase()) !== -1;
+    var isPost = ["put", "post"].indexOf(method.toLowerCase()) !== -1;
     var headers = new Headers();
-    var headersMap = isPost ? getPostHeaders({ baseHeaders: baseHeaders, additionalHeaders: additionalHeaders }) : __assign(__assign({}, (baseHeaders || {
-        "Accept-Encoding": "gzip",
-        "Accept": "*/*",
-    })), additionalHeaders);
+    var headersMap = getHeaders({ baseHeaders: baseHeaders, additionalHeaders: additionalHeaders, isPost: isPost });
     for (var _i = 0, _a = Object.keys(headersMap); _i < _a.length; _i++) {
         var k = _a[_i];
         headers.append(k, headersMap[k]);
@@ -67,7 +69,7 @@ var getOptions = function (_options) {
     }
     var body;
     if (isPost) {
-        if (typeof _body == 'string') {
+        if (typeof _body == "string") {
             body = _body;
         }
         else if (_body) {
@@ -78,7 +80,7 @@ var getOptions = function (_options) {
 };
 exports.getOptions = getOptions;
 var uapiFetch = function (_options) {
-    var _a = exports.getOptions(_options), uri = _a.uri, iFetchOptions = __rest(_a, ["uri"]);
+    var _a = (0, exports.getOptions)(_options), uri = _a.uri, iFetchOptions = __rest(_a, ["uri"]);
     // console.log(iFetchOptions);
     return fetch(uri, iFetchOptions);
 };

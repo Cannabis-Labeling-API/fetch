@@ -73,18 +73,18 @@ var getQr = function (qr, route, options) {
         var _a, endpoint, pathComponents, vars, qrPathDefinition, uri, endpointPathDefinition, res;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, exports.fetchEndpointInfo(qr)];
+                case 0: return [4 /*yield*/, (0, exports.fetchEndpointInfo)(qr)];
                 case 1:
                     _a = _b.sent(), endpoint = _a.endpoint, pathComponents = _a["path-components"];
                     vars = {};
                     qrPathDefinition = pathComponents;
                     uri = endpoint;
                     if (qrPathDefinition) {
-                        vars = lib_1.parsePathComponents(qr, qrPathDefinition);
-                        endpointPathDefinition = endpoint + "/" + exports.Endpoints[route].get;
-                        uri = lib_1.applyPathComponents(endpointPathDefinition, vars);
+                        vars = (0, lib_1.parsePathComponents)(qr, qrPathDefinition);
+                        endpointPathDefinition = "".concat(endpoint, "/").concat(exports.Endpoints[route].get);
+                        uri = (0, lib_1.applyPathComponents)(endpointPathDefinition, vars);
                     }
-                    return [4 /*yield*/, fetch_1.uapiFetch(__assign({ uri: uri }, options))];
+                    return [4 /*yield*/, (0, fetch_1.uapiFetch)(__assign({ uri: uri }, options))];
                 case 2:
                     res = _b.sent();
                     return [4 /*yield*/, res.json()];
@@ -105,19 +105,19 @@ var postQr = function (qr, route, options) {
             switch (_a.label) {
                 case 0:
                     url = new URL(qr);
-                    return [4 /*yield*/, exports.fetchEndpointInfo(qr)];
+                    return [4 /*yield*/, (0, exports.fetchEndpointInfo)(qr)];
                 case 1:
                     epInfo = _a.sent();
                     vars = {};
                     qrPathDefinition = epInfo['path-components'];
                     uri = epInfo.endpoint;
                     if (qrPathDefinition) {
-                        vars = lib_1.parsePathComponents(qr, qrPathDefinition);
+                        vars = (0, lib_1.parsePathComponents)(qr, qrPathDefinition);
                         console.log("apply path vars", vars);
-                        endpointPathDefinition = epInfo.endpoint + "/" + exports.Endpoints[route].get;
-                        uri = lib_1.applyPathComponents(endpointPathDefinition, vars);
+                        endpointPathDefinition = "".concat(epInfo.endpoint, "/").concat(exports.Endpoints[route].get);
+                        uri = (0, lib_1.applyPathComponents)(endpointPathDefinition, vars);
                     }
-                    return [4 /*yield*/, fetch_1.uapiFetch(__assign({ uri: uri }, options))];
+                    return [4 /*yield*/, (0, fetch_1.uapiFetch)(__assign({ uri: uri }, options))];
                 case 2:
                     res = _a.sent();
                     return [4 /*yield*/, res.json()];
@@ -136,8 +136,8 @@ var fetchEndpointInfo = function (qr, apiKey) { return __awaiter(void 0, void 0,
                 url = new URL(qr);
                 if (info[url.host] !== undefined)
                     return [2 /*return*/, info[url.host]];
-                endpoint = "https://" + url.host;
-                endpointInfo = endpoint + "/.well-known/cannabis-api.json";
+                endpoint = "https://".concat(url.host);
+                endpointInfo = "".concat(endpoint, "/.well-known/cannabis-api.json");
                 return [4 /*yield*/, fetch(endpointInfo)];
             case 1:
                 res = _a.sent();
