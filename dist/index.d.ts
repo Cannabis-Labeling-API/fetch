@@ -2,7 +2,7 @@ import { uapiFetch, FetchOptions, getOptions } from "./fetch";
 export { FetchOptions };
 export interface WellKnown {
     endpoint: string;
-    'path-components'?: string;
+    "path-components"?: string;
     vendor?: string;
     example?: {
         qr: string;
@@ -23,7 +23,7 @@ export declare const Endpoints: {
     };
 };
 export declare const getQr: (qr: string, route?: string, options?: FetchOptions) => Promise<any>;
-export declare const postQr: (qr: string, route?: string, options?: FetchOptions) => Promise<unknown>;
+export declare const postQr: (qr: string, route?: string, options?: FetchOptions) => Promise<any>;
 export { postQr as putQr };
 export { uapiFetch };
 export { getOptions };

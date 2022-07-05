@@ -56,7 +56,7 @@ var info = {};
 exports.Endpoints = {
     case: {
         get: "case/{:id}",
-        post: "case/{:id}"
+        post: "case/{:id}",
     },
     each: {
         get: "each/{:id}",
@@ -64,8 +64,8 @@ exports.Endpoints = {
     },
     regulator: {
         get: "regulator/{:id}",
-        post: "regulator/{:id}"
-    }
+        post: "regulator/{:id}",
+    },
 };
 var getQr = function (qr, route, options) {
     if (route === void 0) { route = "case"; }
@@ -96,35 +96,29 @@ var getQr = function (qr, route, options) {
 exports.getQr = getQr;
 var postQr = function (qr, route, options) {
     if (route === void 0) { route = "case"; }
-    // if (!apiKey) {
-    //     throw new Error("please provide a JWT string to be encoded as a header");
-    // }
-    return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
-        var url, epInfo, vars, qrPathDefinition, uri, endpointPathDefinition, res;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    url = new URL(qr);
-                    return [4 /*yield*/, (0, exports.fetchEndpointInfo)(qr)];
+    return __awaiter(void 0, void 0, void 0, function () {
+        var _a, endpoint, pathComponents, vars, qrPathDefinition, uri, endpointPathDefinition, res;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, (0, exports.fetchEndpointInfo)(qr)];
                 case 1:
-                    epInfo = _a.sent();
+                    _a = _b.sent(), endpoint = _a.endpoint, pathComponents = _a["path-components"];
                     vars = {};
-                    qrPathDefinition = epInfo['path-components'];
-                    uri = epInfo.endpoint;
+                    qrPathDefinition = pathComponents;
+                    uri = endpoint;
                     if (qrPathDefinition) {
                         vars = (0, lib_1.parsePathComponents)(qr, qrPathDefinition);
-                        console.log("apply path vars", vars);
-                        endpointPathDefinition = "".concat(epInfo.endpoint, "/").concat(exports.Endpoints[route].get);
+                        endpointPathDefinition = "".concat(endpoint, "/").concat(exports.Endpoints[route].get);
                         uri = (0, lib_1.applyPathComponents)(endpointPathDefinition, vars);
                     }
-                    return [4 /*yield*/, (0, fetch_1.uapiFetch)(__assign({ uri: uri }, options))];
+                    return [4 /*yield*/, (0, fetch_1.uapiFetch)(__assign({ uri: uri, method: "POST" }, options))];
                 case 2:
-                    res = _a.sent();
+                    res = _b.sent();
                     return [4 /*yield*/, res.json()];
-                case 3: return [2 /*return*/, _a.sent()];
+                case 3: return [2 /*return*/, _b.sent()];
             }
         });
-    }); });
+    });
 };
 exports.postQr = postQr;
 exports.putQr = exports.postQr;
