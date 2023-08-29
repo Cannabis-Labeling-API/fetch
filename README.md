@@ -8,6 +8,18 @@
 
 Retrieve information from the UAPI from node or (cli)
 
+To test please copy example.env.json to local.env.json and replace the demo api key with your own.
+
+```sh
+yarn
+cd test
+cp example.env.json local.env.json
+# edit local.env.json
+cd ..
+npm test
+```
+The demo api key will work, but may produce odd results if others are using it at the same time.
+
 # More information:
 
 - [Hosted Documentation](https://cannabis-labeling-api.github.io/universal-cannabis-api/)
