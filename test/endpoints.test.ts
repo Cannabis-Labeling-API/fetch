@@ -11,15 +11,18 @@ import { assert } from "chai";
 const badApiKey = "123asd";
 const env = require("./local.env.json");
 
-const batchTag = "1A4901";
-const childTag = "1A4903";
+const batchTag = "1a4060300007777000000001";
+const childTag = "1a4060300007777000000011";
+
+const d = new Date();
+const dateString = `${d.getFullYear()}-${d.getMonth()}-${d.getDay()}`;
 
 const testFixtures = {
   id: batchTag,
-  strain: "Api Kush",
-  category: "Api Vape 1g",
-  quantity: 6,
-  caseQuantity: 2,
+  strain: "Test OG",
+  batch: `TSTOG-${dateString}-PR-1G`,
+  category: "Preroll 1g",
+  quantity: 100
 };
 
 const endpointInfo = {
